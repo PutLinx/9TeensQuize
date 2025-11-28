@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Quiz9Teen's">
+    <meta name="description" content="Tes ini dibuat khusus sebagai bagian dari perayaan ulang tahun gua — tapi bukan tes biasa.
+                                    Di sini, kamu bakal nemuin campuran antara teka-teki, logika, dan pilihan yang bisa nentuin akhir perjalanan kamu.
+                                    Nggak semua orang bisa sampai selesai, tapi yang berhasil?
+                                    Hadiah udah nunggu di ujung jalan.
+                                    Anggap aja ini sebagai game kecil yang gua siapin:
+                                    nggak terlalu mudah, nggak terlalu sulit, tapi cukup buat bikin kamu penasaran dan ketagihan buat nyelesain sampai akhir.
+                                    Selamat bermain… dan jangan lupa:
+                                    hadiah cuma buat yang bener-bener layak dapet.🎉">
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel="icon" href="/assets/icon.svg" type="image/svg+xml" sizes="16x16">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>9Teen's</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="loginScreen">
+            <div class="header">
+                <h1>🫸Teka-Teki <span style="text-decoration: overline;"><span
+                            style="color: salmon;">9</span>Teen's</span>🫷</h1>
+                <p style="color: #718096;">Uji kecerdasan Lu sekaligus dapatkan <span
+                        style="color: salmon;">Reward!</span></p>
+            </div>
+            <div style="text-align: center; margin: 40px 0;">
+                <div style="font-size: 80px; margin-bottom: 20px;">🧠</div>
+                <p style="color: #4a5568; font-size: 18px; margin-bottom: 0;">Masukkan <span
+                        style="text-decoration: underline dotted;">nama</span> untuk memulai game!</p>
+                        <p style="font-size: 12px; opacity: .5; color: green; text-align: center; margin: 0; padding: 0;">🟢Player Online: 22</p>
+            </div>
+            <label for="playerName" style="color: gray;"><i class="fa fa-pen fa-stack"
+                    style="display: inline; margin-right: 5px; font-size: 13px;"></i>Nama kamu :</label>
+            <input type="text" id="playerName" placeholder="? ? ? ? ?" style="text-align: center; font-size: 18px;"
+                min="5" minlength="5" max="8" maxlength="8" required>
+            <button class="btn" onclick="startGame()"
+                style="font-size: 17px; padding: 12px; margin-bottom: 3px;">🎮Mulai Bermain</button>
+            <button class="btn" onclick="window.location.href = 'statistik.html'"
+                style="font-size: 17px; padding: 12px; margin-top: 3px; margin-bottom: 2px;">📊Statistik Pemain</button>
+            <button class="btn" onclick="window.location.href = 'ketper.html'"
+                style="font-size: 17px; padding: 12px; margin-top: 3px; margin-bottom: 2px;">🛑Ketentuan &
+                Peraturan</button>
+            <div
+                style="display: flex; justify-content: space-between; position: relative; font-size: 10px; font-weight: 400; font-family: Arial, sans-serif; opacity: .6; margin-top: 3px;">
+                <div>
+                    <p">Created by <span style="color: red; font-weight: 600;">Putra</span></p>
+                        <p">Tested by <span style="color: red; font-weight: 600;">Acell</span></p>
+                </div>
+                <div
+                    style="color: black; padding: 2px; width: 50%; border: 1px solid black; border-radius: 3px; display: flex; justify-content: space-around;">
+                    <i class="fa fa-book fa-stack"></i>
+                    <i class="fa fa-id-badge fa-stack"></i>
+                    <i class="fa fa-gift fa-stack"></i>
+                </div>
+                <div>
+                    <p>Powered with <span style="color: red; font-weight: 600;">Github</span></p>
+                    <p>Deploy with <span style="color: red; font-weight: 600;">Vercel</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="gameScreen" style="display: none;">
+            <div class="header">
+                <h1><i class="fa fa-gear fa-spin"></i> <span style="text-decoration: underline;">Quiz</span><span
+                        style="color: salmon;"> 9</span><span style="text-decoration: overline;">Teen's</span> <i
+                        class="fa fa-gear fa-spin"></i></h1>
+                <p style="color: #718096;">Selamat bermain, <strong><span id="displayName"
+                            style="color: #667eea;"></span></strong>!</p>
+            </div>
+
+            <div class="chances">
+                <span class="heart" id="heart1">❤️</span>
+                <span class="heart" id="heart2">❤️</span>
+                <span class="heart" id="heart3">❤️</span>
+                <span class="heart" id="heart4">❤️</span>
+                <span class="heart" id="heart5">❤️</span>
+            </div>
+
+            <div class="step-indicator" data-progress="0/50">
+                <div class="step-dot" id="progressBar" style="width: 0%;"></div>
+            </div>
+
+            <div id="messageArea"></div>
+
+            <div class="puzzle-section active" id="step1">
+                <div class="question">
+                    <h3>🔢Quiziz 1: Urutan Angka</h3>
+                    <p>Perhatikan urutan berikut:</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">2, 6, 12, 20, 30, ?</p>
+                    <div class="hint">💡 Petunjuk: Gunakan rumus matematika dasar perhitungan suku n</div>
+                    <div class="hint">🔎 Kata Kunci: n(n+1)</div>
+                </div>
+                <input type="number" id="answer1" placeholder="Masukkan jawaban Anda...">
+                <button class="btn" onclick="checkAnswer(1)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step2">
+                <div class="question">
+                    <h3>🧩Teka-teki 2: Teka-teki Logika</h3>
+                    <p>Jika semua MAWAR adalah BUNGA dan beberapa BUNGA berwarna MERAH, manakah pernyataan yang PASTI
+                        benar?</p>
+                    <p style="margin-top: 15px;">A. Semua BUNGA adalah MAWAR</p>
+                    <p>B. Beberapa MAWAR berwarna MERAH</p>
+                    <p>C. Semua MAWAR berwarna MERAH</p>
+                    <p>D. Tidak ada yang pasti benar</p>
+                    <div class="hint">💡 Petunjuk: Pikirkan hubungan logis antara kategori umum dan khusus</div>
+                    <div class="hint">🔎 Kata Kunci: umum / khusus</div>
+                </div>
+                <input type="text" id="answer2" placeholder="Masukkan Huruf..." maxlength="1">
+                <button class="btn" onclick="checkAnswer(2)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step3">
+                <div class="question">
+                    <h3>🔤Teka-teki 3: Pecahkan Kode</h3>
+                    <p>Dalam kode rahasia:</p>
+                    <p style="font-weight: bold;">CAT = 3120, DOG = 4157, PIG = ?</p>
+                    <div class="hint">💡 Petunjuk: Setiap huruf memiliki nilai berdasarkan posisinya dalam alfabet</div>
+                    <div class="hint">🔎 Kata Kunci: Posisi</div>
+                </div>
+                <input type="number" id="answer3" placeholder="Masukkan Angka...">
+                <button class="btn" onclick="checkAnswer(3)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step4">
+                <div class="question">
+                    <h3>💭Teka-teki 4: Teka-teki Klasik</h3>
+                    <p>Aku memiliki kota tapi tidak ada rumah.</p>
+                    <p>Aku memiliki gunung tapi tidak ada pohon.</p>
+                    <p>Aku memiliki air tapi tidak ada ikan.</p>
+                    <p style="margin-top: 15px; font-weight: bold;">Aku adalah?</p>
+                    <div class="hint">💡 Petunjuk: Sesuatu yang menunjukkan lokasi</div>
+                    <div class="hint">🔎 Kata Kunci: Lokasi</div>
+                </div>
+                <input type="text" id="answer4" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(4)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step5">
+                <div class="question">
+                    <h3>🎯Teka-teki 5: Pola Tersembunyi</h3>
+                    <p>Temukan angka yang hilang:</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">8, 5, 4, 9, 1, 7, 6, ?, 2</p>
+                    <div class="hint">💡 Petunjuk: Ini bukan tentang matematika, tapi tentang urutan alfabetis nama
+                        angka</div>
+                    <div class="hint">🔎 Kata Kunci: Urutan alfabetis</div>
+                </div>
+                <input type="number" id="answer5" placeholder="Masukkan Angka...">
+                <button class="btn" onclick="checkAnswer(5)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step6">
+                <div class="question">
+                    <h3>🌙Teka-teki 6: Pendirian Bulan</h3>
+                    <p>Siapa pertama kali yang memijakkan kaki dibulan dengan misinya Apollo 11:</p>
+                    <p style="margin-top: 15px;">A. Calo Deffa</p>
+                    <p>B. Neil Armstrong</p>
+                    <p>C. Ruca Daeblo</p>
+                    <p>D. Sutai Jukev</p>
+                    <div class="hint">💡 Petunjuk: Orang pertama yang menginjakkan kaki di bulan</div>
+                    <div class="hint">🔎 Kata Kunci: Orang pertama</div>
+                </div>
+                <input type="text" id="answer6" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(6)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step7">
+                <div class="question">
+                    <h3>🤱Teka-teki 7: Pernyataan Identitas</h3>
+                    <p>Ibu dari Ibumu adalah apa hubungannya denganmu?</p>
+                    <div class="hint">💡 Petunjuk: Pakai visualisasi dan pikiran untuk membayangkan kejadian</div>
+                    <div class="hint">🔎 Kata Kunci: Visualisasi dan pikiran</div>
+                </div>
+                <input type="text" id="answer7" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(7)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step8">
+                <div class="question">
+                    <h3>💨Teka-teki 8: Sebuah Perubahan</h3>
+                    <p>Proses perubahan wujud dari padat langsung ke gas disebut?</p>
+                    <div class="hint">💡 Petunjuk: Sering terjadi pada penguapan pada suatu benda padat / cair</div>
+                    <div class="hint">🔎 Kata Kunci: Penguapan</div>
+                </div>
+                <input type="text" id="answer8" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(8)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step9">
+                <div class="question">
+                    <h3>🗻Teka-teki 9: Gunung Salju</h3>
+                    <p>Gunung tertinggi di Indonesia berada dimana?</p>
+                    <div class="hint">💡 Petunjuk: Gunung ini memiliki salju dipuncaknya</div>
+                    <div class="hint">🔎 Kata Kunci: Memiliki salju</div>
+                </div>
+                <input type="text" id="answer9" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(9)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step10">
+                <div class="question">
+                    <h3>🍬Teka-teki 10: Permen Kecil</h3>
+                    <p>Giva memiliki uang Rp10.000. Dia ingin membeli permen seharga Rp500 per biji.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;"> Berapa banyak permen yang bisa
+                        dia beli?</p>
+                    <div class="hint">💡 Petunjuk: Hitung dengan menggunakan rumus matematika basic</div>
+                    <div class="hint">🔎 Kata Kunci: Matematika basic</div>
+                </div>
+                <input type="number" id="answer10" placeholder="Masukkan Angka...">
+                <button class="btn" onclick="checkAnswer(10)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step11">
+                <div class="question">
+                    <h3>🖥️Teka-teki 11: Otak Komputer</h3>
+                    <p>Setiap Komputer memiliki otak kecil didalamnya bernama CPU, Kepanjangan dari CPU adalah?</p>
+                    <p style="margin-top: 15px;">A. Central Processing Unit</p>
+                    <p>B. Central Process Unit</p>
+                    <p>C. Central Program Unit</p>
+                    <p>D. Central Prefix Unit</p>
+                    <div class="hint">💡 Petunjuk: Dia adalah otak utama untuk menjalankan tugas</div>
+                    <div class="hint">🔎 Kata Kunci: Otak utama</div>
+                </div>
+                <input type="text" id="answer11" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(11)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step12">
+                <div class="question">
+                    <h3>➗Teka-teki 12: Perhitungan Persentase</h3>
+                    <p>Budi membeli baju seharga Rp200.000 dengan diskon 25%.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Berapa yang harus dibayar Budi?
+                    </p>
+                    <div class="hint">💡 Petunjuk: Hitung dengan menggunakan rumus matematika persentase</div>
+                    <div class="hint">🔎 Kata Kunci: Matematika persentase</div>
+                </div>
+                <input type="number" id="answer12"
+                    placeholder="Masukkan Angka... (contoh: pakai titik 500.000, bukan 500000)">
+                <button class="btn" onclick="checkAnswer(12)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step13">
+                <div class="question">
+                    <h3>🐟Teka-teki 13: Pernyataan Silogisme I</h3>
+                    <p>Semua ikan hidup di air. Paus hidup di air. Apakah paus adalah ikan?</p>
+                    <p style="margin-top: 15px;">A. Betul</p>
+                    <p>B. Salah</p>
+                    <p>C. Mungkin Saja</p>
+                    <p>D. Semua Jawaban Salah</p>
+                    <div class="hint">💡 Petunjuk: Apakah paus itu termasuk golongan ikan?</div>
+                    <div class="hint">🔎 Kata Kunci: Golongan</div>
+                </div>
+                <input type="text" id="answer13" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(13)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step14">
+                <div class="question">
+                    <h3>💘Teka-teki 14: Aliran Darah</h3>
+                    <p>Setiap manusia pastinya setiap hari menghirup udara segar, udara segar itu membantu agar
+                        peredaran darah lancar bagi tubuh.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Pembuluh darah yang membawa darah
+                        kaya oksigen dari jantung ke seluruh tubuh disebut?</p>
+                    <div class="hint">💡 Petunjuk: Dari pusat jantung ke seluruh tubuh</div>
+                    <div class="hint">🔎 Kata Kunci: Pusat jantung</div>
+                </div>
+                <input type="text" id="answer14" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(14)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step15">
+                <div class="question">
+                    <h3>⚡Teka-teki 15: Aliran Listrik</h3>
+                    <p>Pada masa sekarang listrik sangatlah berguna bagi masyarakat luas dan negara. Namun hati-hati
+                        listrik bisa menyetrum.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Benda yang bisa menghantarkan
+                        listrik disebut?</p>
+                    <div class="hint">💡 Petunjuk: Sifat kelistrikan pada benda</div>
+                    <div class="hint">🔎 Kata Kunci: Sifat Kelistrikan</div>
+                </div>
+                <input type="text" id="answer15" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(15)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step16">
+                <div class="question">
+                    <h3>🦗Teka-teki 16: Rantai Makanan</h3>
+                    <p>Rumput dimakan belalang, belalang dimakan katak, katak dimakan ular. Dalam rantai makanan ini,
+                        siapa yang berperan menjadi produsen?</p>
+                    <div class="hint">💡 Petunjuk: Produsen, KonsumenI, KonsumenII, KonsumenIII, dan Pengurai</div>
+                    <div class="hint">🔎 Kata Kunci: Produsen, KonsumenI, KonsumenII, KonsumenIII, dan Pengurai</div>
+                </div>
+                <input type="text" id="answer16" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(16)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step17">
+                <div class="question">
+                    <h3>🧭Teka-teki 17: Arah Kompas</h3>
+                    <p>Jika kamu menghadap ke arah matahari terbit(timur), maka arah sebelah kananmu adalah?</p>
+                    <div class="hint">💡 Petunjuk: Berdiri dan ikuti arahan sesuai instruksi</div>
+                    <div class="hint">🔎 Kata Kunci: Ikuti arahan</div>
+                </div>
+                <input type="text" id="answer17" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(17)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step18">
+                <div class="question">
+                    <h3>⭕Teka-teki 18: Lingkaran Indah</h3>
+                    <p>Sebuah lingkaran memiliki jari-jari 7cm. Berapa luas dari lingkaran tersebut?</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">(phi = 22/7)</p>
+                    <div class="hint">💡 Petunjuk: Gunakan rumus matematika diatas</div>
+                    <div class="hint">🔎 Kata Kunci: Rumus matematika diatas</div>
+                </div>
+                <input type="text" id="answer18"
+                    placeholder="Masukkan Angka... (contoh penulisan kuadrat: cm6 (biasa))">
+                <button class="btn" onclick="checkAnswer(18)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step19">
+                <div class="question">
+                    <h3>🔢Teka-teki 19: Pola Deretan</h3>
+                    <p>Suatu angka berjejer dan membentuk sebuah deret baris angka.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Lengkapi deret: 7,14,21,28,25,?
+                    </p>
+                    <div class="hint">💡 Petunjuk: Antara Tambah, Kali, Kurang atau bagi</div>
+                    <div class="hint">🔎 Kata Kunci: Tambah, Kali, Kurang atau bagi</div>
+                </div>
+                <input type="number" id="answer19" placeholder="Masukkan Angka...">
+                <button class="btn" onclick="checkAnswer(19)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step20">
+                <div class="question">
+                    <h3>🧂Teka-teki 20: Garam Masakan</h3>
+                    <p>Dengan adanya garam, masakan terasa lebih enak dan gurih.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Rumus Kimia untuk garam dapur
+                        adalah?</p>
+                    <div class="hint">💡 Petunjuk: Rumus penamaan pada kimia garam dapur</div>
+                    <div class="hint">🔎 Kata Kunci: penamaan</div>
+                </div>
+                <input type="text" id="answer20" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(20)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step21">
+                <div class="question">
+                    <h3>💵Teka-teki 21: Kekayaan Sejati</h3>
+                    <p>Suatu negara dengan kekayaan melimpah membuat suatu sistem penggandaan uang besar-besaran.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Kondisi dimana suatu harga
+                        terus-menerus naik dan tidak turun disebut?</p>
+                    <div class="hint">💡 Petunjuk: Bahan baku naik secara dratis</div>
+                    <div class="hint">🔎 Kata Kunci: Naik secara drastis</div>
+                </div>
+                <input type="text" id="answer21" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(21)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step22">
+                <div class="question">
+                    <h3>🌳Teka-teki 22: Tumbuhan dan Manusia</h3>
+                    <p>Apa yang dihisap oleh tumbuhan lalu dikeluarkan untuk diberikan pada manusia?</p>
+                    <p style="margin-top: 15px;">A. Oksigen-KarbonDioksida</p>
+                    <p>B. KarbonDioksida-Oksigen</p>
+                    <p>C. KarbonMonoksida-Oksigen</p>
+                    <p>D. Oksigen-KarbonMonoksida</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;"></p>
+                    <div class="hint">💡 Petunjuk: Melalui fotosistesis alami sebagai pengubah</div>
+                    <div class="hint">🔎 Kata Kunci: Fotosintesis alami</div>
+                </div>
+                <input type="text" id="answer22" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(22)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step23">
+                <div class="question">
+                    <h3>🏫Teka-teki 23: Kode Logika</h3>
+                    <p>Jika MEJA = 135101, TULIS = 202112919.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Maka KURSI = ?</p>
+                    <div class="hint">💡 Petunjuk: Tiap huruf memiliki nilai angka masing-masing</div>
+                    <div class="hint">🔎 Kata Kunci: Nilai angka masing-masing</div>
+                </div>
+                <input type="number" id="answer23" placeholder="Masukkan Angka...">
+                <button class="btn" onclick="checkAnswer(23)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step24">
+                <div class="question">
+                    <h3>🌏Teka-teki 24: Negara Lautan</h3>
+                    <p>Negara manakah yang memiliki wilayah terluas di dunia?</p>
+                    <div class="hint">💡 Petunjuk: Negara ini memiliki daratan terluas</div>
+                    <div class="hint">🔎 Kata Kunci: Daratan terluas</div>
+                </div>
+                <input type="text" id="answer24" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(24)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step25">
+                <div class="question">
+                    <h3>🐤Teka-teki 25: Statement Hewani</h3>
+                    <p>Dalam sebuah ruang debat. Ada 2 kubu saling menyerang, kubu 1 menyatakan bahwa AYAM terlebih
+                        dahulu baru TELUR namun kubu 2 menegaskan bahwa yang lebih dulu adalah TELUR baru ada AYAM</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Jadi, mana yang lebih dulu, telur
+                        atau ayam?</p>
+                    <div class="hint">💡 Petunjuk: Pakai logika untuk menjawab soal ini</div>
+                    <div class="hint">🔎 Kata Kunci: Logika</div>
+                </div>
+                <input type="text" id="answer25" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(25)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step26">
+                <div class="question">
+                    <h3>🫂Teka-teki 26: Suara Rakyat</h3>
+                    <p>Pada hari selasa kemarin terjadi demo antar masyarakat dengan para petinggi dengan maksud untuk
+                        menambahkan ruang fasilitas umum.</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Sistem pemerintahan dengan
+                        kekuasaan tertinggi ditangan rakyat disebut?</p>
+                    <div class="hint">💡 Petunjuk: Inilah sistem protes yang diterapkan pada banyak negara</div>
+                    <div class="hint">🔎 Kata Kunci: Sistem protes</div>
+                </div>
+                <input type="text" id="answer26" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(26)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step27">
+                <div class="question">
+                    <h3>🪖Teka-teki 27: Peperangan</h3>
+                    <p>Pada waktu itu, akhirnya Jepang menyerah dan pada saat itu juga Indonesia memerdekaan benderanya
+                    </p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Perang dunia II berakhir pada
+                        tahun?</p>
+                    <div class="hint">💡 Petunjuk: Ini adalah peperangan besar ke-2 setelah pertama</div>
+                    <div class="hint">🔎 Kata Kunci: Peperangan besar</div>
+                </div>
+                <input type="number" id="answer27" placeholder="Masukkan Angka...">
+                <button class="btn" onclick="checkAnswer(27)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step28">
+                <div class="question">
+                    <h3>☀️Teka-teki 28: Gerhana Matahari</h3>
+                    <p>Gerhana matahari total terjadi Ketika posisi apa yang benar?</p>
+                    <p style="margin-top: 15px;">A. Matahari-Bumi-Bulan</p>
+                    <p>B. Bulan-Bumi-Matahari</p>
+                    <p>C. Matahari-Bulan-Bumi</p>
+                    <p>D. Semua Salah</p>
+                    <div class="hint">💡 Petunjuk: Gerhana ini menyebabkan sebagian bumi dari terang menjadi gelap total
+                    </div>
+                    <div class="hint">🔎 Kata Kunci: Gelap total</div>
+                </div>
+                <input type="text" id="answer28" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(28)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step29">
+                <div class="question">
+                    <h3>☄️Teka-teki 29: Sabuk Pelindung</h3>
+                    <p>Dalam tata surya kita, terdapat sabuk asteroid untuk sebagai pelindung bumi agar terhindar dari
+                        bahaya asteroid disekitarnya</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Sabuk asteroid di tata Surya kita
+                        terletak di antara orbit planet apa?</p>
+                    <p>A. Bulan dan Bumi</p>
+                    <p>B. Mars dan Jupiter</p>
+                    <p>C. Mars dan Bumi</p>
+                    <p>D. Uranus dan Pluto</p>
+                    <div class="hint">💡 Petunjuk: Tata letaknya berada di tengah-tengah tatanan planet</div>
+                    <div class="hint">🔎 Kata Kunci: Berada di tengah-tengah</div>
+                </div>
+                <input type="text" id="answer29" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(29)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step30">
+                <div class="question">
+                    <h3>⛅Teka-teki 30: Cahaya Matahari</h3>
+                    <p>Dengan adanya matahari, kehidupan mulai dari hewani, manusia, dan tumbuhan dapat tercukupi dengan
+                        baik</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Berapa lama Waktu yang dibutuhkan
+                        cahaya matahari untuk sampai ke bumi?</p>
+                    <p>A. Pas 8menit</p>
+                    <p>B. +-8menit</p>
+                    <p>C. ≈8menit</p>
+                    <p>D. Tidak pasti</p>
+                    <div class="hint">💡 Petunjuk: Cahaya masuk ke atmosfer bumi dari antara atau mendekati</div>
+                    <div class="hint">🔎 Kata Kunci: Antara atau mendekati</div>
+                </div>
+                <input type="text" id="answer30" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(30)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step31">
+                <div class="question">
+                    <h3>🌌Teka-teki 31: Galaksi Tata Surya</h3>
+                    <p>Begitu indah ciptaan Tuhan dari kita debu bagi alam semesta ini, bahkan galaksi-pun menjadi
+                        serbukan debu dari luasnya alam semesta ini</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Nama galaksi tetangga kita Bima
+                        Sakti yaitu?</p>
+                    <p>A. Galaksi Andromeda</p>
+                    <p>B. Galaksi Bimasakti</p>
+                    <p>C. Galaksi Sombrero</p>
+                    <p>D. Galaksi Awan Magellan Besar</p>
+                    <div class="hint">💡 Petunjuk: Galaksi ini adalah tetangga dari kita</div>
+                    <div class="hint">🔎 Kata Kunci: Tetangga</div>
+                </div>
+                <input type="text" id="answer31" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(31)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step32">
+                <div class="question">
+                    <h3>🚣‍♂️Teka-teki 32: Sungai Ular</h3>
+                    <p>Didunia ini terdapat 1 sungai yang menjuntai jauh dari teluk ke teluk. Sungai ini juga mendapat
+                        nominasi sebagai sungai terpanjang didunia</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Sungai terpanjang di dunia
+                        adalah?</p>
+                    <p>A. Sungai Mississippi-Missouri</p>
+                    <p>B. Sungai Yangtze</p>
+                    <p>C. Sungai Amazon</p>
+                    <p>D. Sungai Nil</p>
+                    <div class="hint">💡 Petunjuk: Sungai ini adalah terpanjang no 1 didunia</div>
+                    <div class="hint">🔎 Kata Kunci: Terpanjang</div>
+                </div>
+                <input type="text" id="answer32" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(32)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step33">
+                <div class="question">
+                    <h3>🐈Teka-teki 33: Pernyataan Silogisme II</h3>
+                    <p>Semua kucing adalah mamalia, Tom adalah kucing. Maka Tom adalah?</p>
+                    <div class="hint">💡 Petunjuk: Awas pertanyaan jebakan</div>
+                    <div class="hint">🔎 Kata Kunci: Awas</div>
+                </div>
+                <input type="text" id="answer33" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(33)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step34">
+                <div class="question">
+                    <h3>👶Teka-teki 34: Sebuah Persaudaraan</h3>
+                    <p>Dika kebingungan ketika bertamu dan bertemu pada suatu acara keluarga besarnya</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Jika A adalah saudara B, dan B
+                        adalah saudara C. Apakah A pasti saudara C?</p>
+                    <p>A. Benar</p>
+                    <p>B. Salah</p>
+                    <p>C. Tidak Pasti</p>
+                    <p>D. Semua Salah</p>
+                    <div class="hint">💡 Petunjuk: Pakailah logika untuk menjawab soal ini</div>
+                    <div class="hint">🔎 Kata Kunci: Logika</div>
+                </div>
+                <input type="text" id="answer34" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(34)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step35">
+                <div class="question">
+                    <h3>😋Teka-teki 35: Analogi Keberadaan</h3>
+                    <p>Pada malam hari Dinda disaat makan memikirkan suatu hal yang ingin sekali dia pecahkan</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Jika Garpu : Makan, maka Pensil :
+                        ?</p>
+                    <p>A. Tulis</p>
+                    <p>B. Tuliskan</p>
+                    <p>C. Menulis</p>
+                    <p>D. Menuliskan</p>
+                    <div class="hint">💡 Petunjuk: Pakailah logika jika-ini maka-itu untuk menjawab soal ini</div>
+                    <div class="hint">🔎 Kata Kunci: Logika jika-ini jika-itu</div>
+                </div>
+                <input type="text" id="answer35" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(35)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step36">
+                <div class="question">
+                    <h3>🍽️Teka-teki 36: Makanan dan Manusia</h3>
+                    <p>Makanan masuk melalui mulut, turun ke kerongkongan, masuk ke lambung, lalu ke usus. Organ mana
+                        yang pertama kali mencerna makanan dengan asam?</p>
+                    <div class="hint">💡 Petunjuk: Pakai logika alur</div>
+                    <div class="hint">🔎 Kata Kunci: Logika alur</div>
+                </div>
+                <input type="text" id="answer36" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(36)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step37">
+                <div class="question">
+                    <h3>📏Teka-teki 37: Nilai Ujian Kelas A</h3>
+                    <p>Pada minggu lalu Ani berhasil menyelesaikan semua ujian dengan nilai masing-masingnya: 80, 75,
+                        90, 85, 70</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Hasil nilai ujian Ani: 80, 75,
+                        90, 85, 70. Berapa nilai rata-ratanya?</p>
+                    <div class="hint">💡 Petunjuk: Pakailah rumus matematika sederhana perhitungan rerata nilai</div>
+                    <div class="hint">🔎 Kata Kunci: Perhitungan rerata nilai</div>
+                </div>
+                <input type="number" id="answer37" placeholder="Masukkan Angka...">
+                <button class="btn" onclick="checkAnswer(37)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step38">
+                <div class="question">
+                    <h3>📐Teka-teki 38: Haluan Numerika</h3>
+                    <p>Pada sebuah ujian matematika terdapat 1 soal yang sulit untuk dikerjakan</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Jika 2+3=115, 4+5=405, 6+7=871,
+                        maka 8+9=?</p>
+                    <div class="hint">💡 Petunjuk: X + X = Y + XX = Hasilnya</div>
+                    <div class="hint">🔎 Kata Kunci: X + X = Y + XX</div>
+                </div>
+                <input type="number" id="answer38" placeholder="Masukkan Angka...">
+                <button class="btn" onclick="checkAnswer(38)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step39">
+                <div class="question">
+                    <h3>🗑️Teka-teki 39: Filterisasi Sampah</h3>
+                    <p>Sampah dibedakan menjadi 2 bagian, sampah organik dan anorganik. Sampah apakah yang cocok untuk
+                        diolah menjadi pupuk?</p>
+                    <div class="hint">💡 Petunjuk: Organik atau Anorganik</div>
+                    <div class="hint">🔎 Kata Kunci: Organik atau Anorganik</div>
+                </div>
+                <input type="text" id="answer39" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(39)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step40">
+                <div class="question">
+                    <h3>✂️Teka-teki 40: Keanehan Desa</h3>
+                    <p>Dalam sebuah desa, tukang cukur mencukur semua orang yang tidak mencukur dirinya sendiri. Siapa
+                        yang mencukur tukang cukur?</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Apa yang terjadi sebenarnya?</p>
+                    <p>A. Paradoks</p>
+                    <p>B. Non Paradoks</p>
+                    <p>C. Mungkin paradoks</p>
+                    <p>D. Semua Jawaban Salah</p>
+                    <div class="hint">💡 Petunjuk: Kejadian dengan hanya memutar-mutar otak</div>
+                    <div class="hint">🔎 Kata Kunci: Memutar-mutar otak</div>
+                </div>
+                <input type="text" id="answer40" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(40)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step41">
+                <div class="question">
+                    <h3>📕Teka-teki 41: Penggunaan Serapan</h3>
+                    <p>Lengkapi kalimat berikut dengan kata serapan yang tepat dari pilihan di bawah ini</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Suhu udara di puncak gunung
+                        terasa sangat _______</p>
+                    <p>A. Hangat</p>
+                    <p>B. Panas</p>
+                    <p>C. Dingin</p>
+                    <p>D. Sejuk</p>
+                    <div class="hint">💡 Petunjuk: Gunakan kata serapan untuk menjawab soal</div>
+                    <div class="hint">🔎 Kata Kunci: Kata serapan</div>
+                </div>
+                <input type="text" id="answer41" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(41)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step42">
+                <div class="question">
+                    <h3>🏜️Teka-teki 42: Kekeringan Bumi</h3>
+                    <p>Kekeringan melanda beberapa wilayah di Provinsi Banten. Warga kesulitan mendapatkan air bersih
+                        untuk kebutuhan sehari-hari. Pemerintah setempat bersama tim SAR telah mengirimkan bantuan air
+                        bersih dan sembako. Kepala BPBD Banten menghimbau warga untuk tetap tenang dan menjaga
+                        kesehatan, serta tidak membuang-buang air yang tersedia
+                    </p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Apa dampak utama dari kekeringan
+                        yang terjadi di Banten?</p>
+                    <p>A. Pemerintah mengirimkan bantuan sembako dan air bersih</p>
+                    <p>B. Warga mengalami kesulitan mendapatkan air bersih</p>
+                    <p>C. Terjadi kekacauan di sejumlah wilayah</p>
+                    <p>D. Banyak warga yang membuang-buang air</p>
+                    <div class="hint">💡 Petunjuk: Amati berita dan jawab sesuai apa yang ada di berita tersebut</div>
+                    <div class="hint">🔎 Kata Kunci: Amati berita</div>
+                </div>
+                <input type="text" id="answer42" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(42)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step43">
+                <div class="question">
+                    <h3>🏡Teka-teki 43: Livings</h3>
+                    <p>Pilihlah kata yang tepat untuk melengkapi kalimat:</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">My name is John. I am from ____
+                    </p>
+                    <p>A. Blue</p>
+                    <p>B. Seven</p>
+                    <p>C. Indonesia</p>
+                    <p>D. School</p>
+                    <div class="hint">💡 Petunjuk: It's so easy.. dawg</div>
+                    <div class="hint">🔎 Kata Kunci: So easy.. dawg</div>
+                </div>
+                <input type="text" id="answer43" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(43)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step44">
+                <div class="question">
+                    <h3>📖Teka-teki 44: Many Books</h3>
+                    <p>Terjemahkan kalimat berikut ke dalam Bahasa Inggris:</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Saya punya 2 buku.</p>
+                    <p>A. I have two book</p>
+                    <p>B. I have two books</p>
+                    <p>C. I have two book-s</p>
+                    <p>D. I having two books</p>
+                    <div class="hint">💡 Petunjuk: Nope. Tidak ada petunjuk ini mudah</div>
+                    <div class="hint">🔎 Kata Kunci: Nope</div>
+                </div>
+                <input type="text" id="answer44" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(44)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step45">
+                <div class="question">
+                    <h3>🏫Teka-teki 45: Morning School</h3>
+                    <p>Lengkapi percakapan di bawah ini dengan jawaban yang tepat:</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">
+                        Teacher: "Good morning,students!"<br>
+                        Students: "______,!"
+                    </p>
+                    <p>A. Good Morning too Miss</p>
+                    <p>B. Good Evening too Miss</p>
+                    <p>C. Good Night too Miss</p>
+                    <p>D. Good Afternoon too Miss</p>
+                    <div class="hint">💡 Petunjuk: Nope. Tidak ada petunjuk ini mudah</div>
+                    <div class="hint">🔎 Kata Kunci: Nope</div>
+                </div>
+                <input type="text" id="answer45" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(45)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step46">
+                <div class="question">
+                    <h3>📝Teka-teki 46: Do a Exams</h3>
+                    <p>Pilihlah kata yang tepat untuk melengkapi kalimat:</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">I use a ___ to write on a piece of paper</p>
+                    <p>A. Fork</p>
+                    <p>B. Spoon</p>
+                    <p>C. Marker</p>
+                    <p>D. Pen</p>
+                    <div class="hint">💡 Petunjuk: Nope. Tidak ada petunjuk ini mudah</div>
+                    <div class="hint">🔎 Kata Kunci: Nope</div>
+                </div>
+                <input type="text" id="answer46" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(46)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step47">
+                <div class="question">
+                    <h3>🌃Teka-teki 47: Sky Views</h3>
+                    <p>Isilah bagian yang kosong:</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">What color is the sky on a sunny day?</p>
+                    <div class="hint">💡 Petunjuk: Nope. Tidak ada petunjuk ini mudah</div>
+                    <div class="hint">🔎 Kata Kunci: Nope</div>
+                </div>
+                <input type="text" id="answer47" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(47)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step48">
+                <div class="question">
+                    <h3>🌾Teka-teki 48: Pekerja Keras</h3>
+                    <p>"Ayah pulang dari sawah membawa sekeranjang penuh padi"</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Apa profesi Ayah berdasarkan kalimat tersebut?</p>
+                    <div class="hint">💡 Petunjuk: Pahami isi teksnya</div>
+                    <div class="hint">🔎 Kata Kunci: Pahami</div>
+                </div>
+                <input type="text" id="answer48" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(48)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step49">
+                <div class="question">
+                    <h3>👩‍🍼Teka-teki 49: Jalan-jalan ke Pasar</h3>
+                    <p>Ibu pergi ke pasar <i><u>tadi pagi</u></i></p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Kata yang bergaris bawah memiliki fungsi sebagai keterangan?</p>
+                    <p>A. Wilayah</p>
+                    <p>B. Tempat</p>
+                    <p>C. Waktu</p>
+                    <p>D. Posisi</p>
+                    <div class="hint">💡 Petunjuk: Pahami kata bergaris bawah</div>
+                    <div class="hint">🔎 Kata Kunci: bergaris bawah</div>
+                </div>
+                <input type="text" id="answer49" placeholder="Masukkan Huruf...">
+                <button class="btn" onclick="checkAnswer(49)">Kirim Jawaban</button>
+            </div>
+
+            <div class="puzzle-section" id="step50">
+                <div class="question">
+                    <h3>💸Teka-teki 50: Berfoya-foya</h3>
+                    <p>Gio memiliki banyak uang dari hasil jualannya, malamnya ia menghabiskan uangnya untuk bersenang-senang</p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center;">Lawan kata dari "hemat" adalah?</p>
+                    <div class="hint">💡 Petunjuk: Ini adalah soal lawan kata</div>
+                    <div class="hint">🔎 Kata Kunci: Lawan kata</div>
+                </div>
+                <input type="text" id="answer50" placeholder="Masukkan Jawaban...">
+                <button class="btn" onclick="checkAnswer(50)">Kirim Jawaban</button>
+            </div>
+        </div>
+
+        <div class="final-message" id="successMessage">
+            <div class="trophy">🏆</div>
+            <h2>Selamat, <span id="successName"></span>!</h2>
+            <p>Kamu berhasil memecahkan semua Quiziz! Kecerdasanmu boleh juga!</p>
+            <p style="margin-top: 15px; font-weight: bold; color: #667eea;">Calon-calon pintar nih✨</p>
+        </div>
+
+        <div class="game-over" id="gameOverMessage">
+            <div class="skull">💀</div>
+            <h2>Game Over, <span id="gameOverName"></span>!</h2>
+            <p>Kesempatan Anda telah habis. Semua interaktivitas dihentikan.</p>
+            <p style="margin-top: 15px; color: #e53e3e; font-weight: bold;">Tetap Semangat Ya!</p>
+        </div>
+
+        <div class="already-played" id="alreadyPlayedMessage">
+            <div class="lock-icon">🔒</div>
+            <h2>Anda Sudah Bermain!</h2>
+            <p style="color: #4a5568; font-size: 16px;">Perangkat ini sudah pernah digunakan untuk bermain game ini.</p>
+            <div class="game-info" id="savedGameInfo"></div>
+        </div>
+    </div>
+
+    <script src="/script/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pengambilan Hadiah - 9Teen's</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/reward.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎁Pengambilan Hadiah🎁</h1>
+            <p><span style="color: salmon; font-weight: 600;">Selamat!</span> Pilih hadiah yang kamu inginkan</p>
+        </div>
+        
+        <div class="rewards-grid">
+            <!-- Card 1: E-wallet -->
+            <div class="reward-card card-1">
+                <span class="badge">POPULER</span>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <h3 class="reward-title">E-Wallet</h3>
+                <p class="reward-desc">Dapatkan saldo digital untuk berbagai platform e-wallet favorit kamu</p>
+                <button class="claim-btn" onclick="claimReward('e-wallet')">
+                    <span><i class="fa fa-gift"></i> Klaim Hadiah</span>
+                </button>
+            </div>
+            
+            <!-- Card 2: Paket Data -->
+            <div class="reward-card card-2">
+                <span class="badge">HEMAT</span>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-wifi"></i>
+                </div>
+                <h3 class="reward-title">Paket Data</h3>
+                <p class="reward-desc">Paket internet untuk tetap terhubung dengan kuota melimpah</p>
+                <button class="claim-btn" onclick="claimReward('paket-data')">
+                    <span><i class="fa fa-gift"></i> Klaim Hadiah</span>
+                </button>
+            </div>
+            
+            <!-- Card 3: Pulsa -->
+            <div class="reward-card card-3">
+                <span class="badge">PRAKTIS</span>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-mobile"></i>
+                </div>
+                <h3 class="reward-title">Pulsa</h3>
+                <p class="reward-desc">Pulsa reguler untuk kebutuhan komunikasi sehari-hari kamu</p>
+                <button class="claim-btn" onclick="claimReward('pulsa')">
+                    <span><i class="fa fa-gift"></i> Klaim Hadiah</span>
+                </button>
+            </div>
+            
+            <!-- Card 4: Boneka Fluffy -->
+            <div class="reward-card card-4">
+                <span class="badge">EKSKLUSIF</span>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <h3 class="reward-title">Boneka Fluffy</h3>
+                <p class="reward-desc">Boneka lucu dan menggemaskan untuk koleksi atau hadiah spesial</p>
+                <button class="claim-btn" onclick="claimReward('boneka')">
+                    <span><i class="fa fa-gift"></i> Klaim Hadiah</span>
+                </button>
+            </div>
+        </div>
+        
+        <a href="/" class="back-button">
+            <i class="fa fa-arrow-left"></i> Kembali ke Halaman Utama
+        </a>
+    </div>
+
+        <script src="/script/reward.js"></script>
+</body>
+</html>

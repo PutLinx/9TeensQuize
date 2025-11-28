@@ -1,0 +1,474 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 600px;
+    width: 100%;
+    padding: 25px 35px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #667eea;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chances {
+    text-align: center;
+    font-size: 40px;
+    margin: 20px 0;
+}
+
+.heart {
+    display: inline-block;
+    margin: 0 5px;
+    transition: all 0.3s;
+}
+
+.heart.lost {
+    opacity: 0.2;
+    filter: grayscale(100%);
+}
+
+/* Ganti kode CSS untuk .step-indicator dan .step-dot dengan ini: */
+
+.step-indicator {
+    width: 100%;
+    height: 30px;
+    background: #e2e8f0;
+    border-radius: 15px;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+.step-dot.active {
+
+}
+
+.step-dot.completed {
+
+}
+
+.step-indicator::after {
+    content: attr(data-progress);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #4a5568;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 1;
+}
+
+.puzzle-section {
+    display: none;
+}
+
+.puzzle-section.active {
+    display: block;
+}
+
+.question {
+    background: #f7fafc;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.question h3 {
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+
+.question p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.hint {
+    background: #fff5e6;
+    padding: 10px;
+    border-left: 4px solid #f6ad55;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #744210;
+}
+
+.message {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.message.success {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.message.error {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+.message.info {
+    background: #bee3f8;
+    color: #2c5282;
+}
+
+.final-message, .game-over, .already-played {
+    display: none;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.final-message.show, .game-over.show, .already-played.show {
+    display: block;
+}
+
+.trophy, .skull, .lock-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.game-info {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.game-info p {
+    margin: 10px 0;
+    color: #2d3748;
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+
+/* Tablet Landscape (hingga 1024px) */
+@media screen and (max-width: 1024px) {
+    .container {
+        max-width: 90%;
+        padding: 25px 30px;
+    }
+}
+
+/* Tablet Portrait (hingga 768px) */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .container {
+        padding: 20px 25px;
+        border-radius: 15px;
+    }
+    
+    .header h1 {
+        font-size: 28px;
+    }
+    
+    .chances {
+        font-size: 35px;
+    }
+    
+    .question {
+        padding: 20px;
+    }
+    
+    .trophy, .skull, .lock-icon {
+        font-size: 70px;
+    }
+
+    .step-indicator {
+        height: 28px;
+        margin: 25px 0;
+        border-radius: 14px;
+    }
+    
+    .step-indicator::after {
+        font-size: 13px;
+    }
+}
+
+/* Mobile Large (hingga 480px) */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+        border-radius: 12px;
+    }
+    
+    .header {
+        margin-bottom: 20px;
+    }
+    
+    .header h1 {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+    
+    .header p {
+        font-size: 14px;
+    }
+    
+    input[type="text"], input[type="number"] {
+        padding: 12px;
+        font-size: 15px;
+    }
+    
+    .btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+    
+    .chances {
+        font-size: 30px;
+        margin: 15px 0;
+    }
+    
+    .heart {
+        margin: 0 3px;
+    }
+    
+    .step-indicator {
+        height: 25px;
+        margin: 20px 0;
+        border-radius: 12px;
+    }
+    
+    .step-dot {
+        border-radius: 12px;
+    }
+    
+    .step-indicator::after {
+        font-size: 12px;
+    }
+    
+    .question {
+        padding: 18px;
+    }
+    
+    .question h3 {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .question p {
+        font-size: 14px;
+    }
+    
+    .hint {
+        padding: 8px;
+        font-size: 13px;
+    }
+    
+    .trophy, .skull, .lock-icon {
+        font-size: 60px;
+    }
+    
+    .final-message, .game-over, .already-played {
+        padding: 0;
+    }
+    
+    .final-message h2, .game-over h2, .already-played h2 {
+        font-size: 21px;
+    }
+    
+    .game-info {
+        padding: 15px;
+    }
+}
+
+/* Mobile Small (hingga 375px) */
+@media screen and (max-width: 375px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .header p {
+        font-size: 13px;
+    }
+    
+    input[type="text"], input[type="number"] {
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .chances {
+        font-size: 26px;
+    }
+    
+    .step-indicator {
+        height: 22px;
+        margin: 15px 0;
+        border-radius: 11px;
+    }
+    
+    .step-dot {
+        border-radius: 11px;
+    }
+    
+    .step-indicator::after {
+        font-size: 11px;
+    }
+    
+    .question {
+        padding: 15px;
+    }
+    
+    .question h3 {
+        font-size: 15px;
+    }
+    
+    .question p {
+        font-size: 13px;
+    }
+    
+    .hint {
+        font-size: 12px;
+    }
+    
+    .trophy, .skull, .lock-icon {
+        font-size: 50px;
+    }
+}
+
+/* Landscape Orientation untuk Mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 15px 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .header {
+        margin-bottom: 15px;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .chances {
+        font-size: 24px;
+        margin: 10px 0;
+    }
+
+    .step-indicator {
+        height: 20px;
+        margin: 15px 0;
+        border-radius: 10px;
+    }
+    
+    .step-dot {
+        border-radius: 10px;
+    }
+    
+    .step-indicator::after {
+        font-size: 10px;
+    }
+    
+    .question {
+        padding: 12px;
+    }
+    
+    .trophy, .skull, .lock-icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+    
+    .final-message, .game-over, .already-played {
+        padding: 20px 15px;
+    }
+}

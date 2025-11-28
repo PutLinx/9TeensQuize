@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Klaim E-Wallet - 9Teen's</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/e-wallet.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <h2>Klaim E-Wallet</h2>
+                <p>Isi data dengan benar untuk mendapatkan hadiah</p>
+            </div>
+            
+            <form id="claimForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="nama">
+                        <i class="fa fa-user"></i>Nama Lengkap
+                    </label>
+                    <input 
+                        type="text" 
+                        id="nama" 
+                        class="form-input" 
+                        placeholder="Masukkan nama lengkap..." 
+                        required
+                        minlength="3">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pilihan">
+                        <i class="fa fa-credit-card"></i>Pilihan E-Wallet
+                    </label>
+                    <select id="pilihan" class="form-select" required>
+                        <option value="">-- Pilih E-Wallet --</option>
+                        <option value="DANA">DANA</option>
+                        <option value="QRIS">QRIS</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notelp">
+                        <i class="fa fa-phone"></i>Nomor Telepon
+                    </label>
+                    <input 
+                        type="tel" 
+                        id="notelp" 
+                        class="form-input" 
+                        placeholder="08xxxxxxxxxx" 
+                        required
+                        pattern="[0-9]{10,13}"
+                        title="Masukkan nomor telepon yang valid (10-13 digit)">
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreement" required>
+                    <label for="agreement">
+                        Saya menyetujui bahwa data yang saya masukkan sudah <strong>benar dan sesuai</strong>. Saya memahami bahwa pilihan ini bersifat final dan tidak dapat diubah setelah konfirmasi.
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-claim">
+                    <i class="fa fa-gift"></i>
+                    <span>Klaim Sekarang</span>
+                </button>
+            </form>
+        </div>
+        
+        <a href="/reward.html" class="back-link">
+            <i class="fa fa-arrow-left"></i>
+            Kembali ke Pilihan Hadiah
+        </a>
+    </div>
+    
+    <!-- Custom Alert Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fa fa-check-circle"></i>
+            </div>
+            <h3 class="modal-title">Konfirmasi Data</h3>
+            <p class="modal-subtitle">Pastikan data yang Anda masukkan sudah benar</p>
+            
+            <div class="modal-info">
+                <div class="info-item">
+                    <span class="info-label">Nama:</span>
+                    <span class="info-value" id="modalNama"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">E-Wallet:</span>
+                    <span class="info-value" id="modalPilihan"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">No. Telepon:</span>
+                    <span class="info-value" id="modalNotelp"></span>
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn-modal btn-cancel" onclick="closeModal()">
+                    <i class="fa fa-times"></i> Batal
+                </button>
+                <button class="btn-modal btn-confirm" onclick="confirmClaim()">
+                    <i class="fa fa-check"></i> Ya, Saya Setuju
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/script/e-wallet.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Klaim Paket Data - 9Teen's</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/paket-data.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-wifi"></i>
+                </div>
+                <h2>Klaim Paket Data</h2>
+                <p>Isi data dengan benar untuk mendapatkan hadiah</p>
+            </div>
+            
+            <form id="claimForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="nama">
+                        <i class="fa fa-user"></i>Nama Lengkap
+                    </label>
+                    <input 
+                        type="text" 
+                        id="nama" 
+                        class="form-input" 
+                        placeholder="Masukkan nama lengkap..." 
+                        required
+                        minlength="3">
+                </div>
+                
+                <div class="form-group">
+                    <label for="nomor">
+                        <i class="fa fa-phone"></i>Nomor Telepon
+                    </label>
+                    <input 
+                        type="tel" 
+                        id="nomor" 
+                        class="form-input" 
+                        placeholder="08xxxxxxxxxx" 
+                        required
+                        pattern="[0-9]{10,13}"
+                        title="Masukkan nomor telepon yang valid (10-13 digit)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="provider">
+                        <i class="fa fa-signal"></i>Provider
+                    </label>
+                    <select id="provider" class="form-select" required>
+                        <option value="">-- Pilih Provider --</option>
+                        <option value="Telkomsel">Telkomsel</option>
+                        <option value="Indosat">Indosat</option>
+                        <option value="Smartfren">Smartfren</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tujuan">
+                        <i class="fa fa-gift"></i>Tujuan Hadiah
+                    </label>
+                    <select id="tujuan" class="form-select" required>
+                        <option value="">-- Pilih Tujuan --</option>
+                        <option value="Diri Sendiri">Diri Sendiri</option>
+                        <option value="Hadiahkan">Hadiahkan ke Orang Lain</option>
+                    </select>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreement" required>
+                    <label for="agreement">
+                        Saya menyetujui bahwa data yang saya masukkan sudah <strong>benar dan sesuai</strong>. Saya memahami bahwa pilihan ini bersifat final dan tidak dapat diubah setelah konfirmasi.
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-claim">
+                    <i class="fa fa-gift"></i>
+                    <span>Klaim Sekarang</span>
+                </button>
+            </form>
+        </div>
+        
+        <a href="/reward.html" class="back-link">
+            <i class="fa fa-arrow-left"></i>
+            Kembali ke Pilihan Hadiah
+        </a>
+    </div>
+    
+    <!-- Custom Alert Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fa fa-check-circle"></i>
+            </div>
+            <h3 class="modal-title">Konfirmasi Data</h3>
+            <p class="modal-subtitle">Pastikan data yang Anda masukkan sudah benar</p>
+            
+            <div class="modal-info">
+                <div class="info-item">
+                    <span class="info-label">Nama:</span>
+                    <span class="info-value" id="modalNama"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Nomor:</span>
+                    <span class="info-value" id="modalNomor"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Provider:</span>
+                    <span class="info-value" id="modalProvider"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Tujuan:</span>
+                    <span class="info-value" id="modalTujuan"></span>
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn-modal btn-cancel" onclick="closeModal()">
+                    <i class="fa fa-times"></i> Batal
+                </button>
+                <button class="btn-modal btn-confirm" onclick="confirmClaim()">
+                    <i class="fa fa-check"></i> Ya, Saya Setuju
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/script/paket-data.js"></script>
+</body>
+</html>
